@@ -1,4 +1,4 @@
-# F1 Data Panel
+# F1 Stats Panel
 
 ## Modules:
 

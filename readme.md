@@ -13,6 +13,5 @@ Fields:
 - Race Driver
 - Car
 - Location (Racetrack)
-- Position
 - Points
 

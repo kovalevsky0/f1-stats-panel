@@ -1,18 +1,13 @@
 import { readFileSync } from "fs";
 
-export abstract class CsvReader<T> {
-  data: T[] = [];
+export class CsvReader {
+  data: string[][] = [];
 
   constructor(public path: string) {}
 
-  private parseCsvString(data: string): T[] {
-    return data
-      .split("\n")
-      .map((row: string) => row.split(","))
-      .map((val) => this.transformStringToRowData(val));
+  private parseCsvString(data: string): string[][] {
+    return data.split("\n").map((row: string) => row.split(","));
   }
-
-  abstract transformStringToRowData(row: string[]): T;
 
   read(): void {
     this.data = this.parseCsvString(

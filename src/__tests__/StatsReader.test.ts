@@ -1,8 +1,8 @@
 import { StatsReader } from "../StatsReader";
+import { CsvReader } from "../CsvReader";
 
 describe("StatsReader", () => {
-  const statsReader = new StatsReader("./data/results.csv");
-  statsReader.read();
+  const statsReader = new StatsReader(new CsvReader("./data/results.csv"));
 
   it("method `transformStringToRowData` returns structured data", () => {
     const strRow = [
@@ -26,19 +26,21 @@ describe("StatsReader", () => {
     expect(rowData[4]).toBe(72);
   });
 
-  it("method `read` reads data from file correctly", () => {
-    expect(statsReader.data).toHaveLength(9);
-    expect(statsReader.data[0]).toHaveLength(5);
+  it("method `load` reads data by Reader class", () => {
+    statsReader.load();
+
+    expect(statsReader.statsData).toHaveLength(9);
+    expect(statsReader.statsData[0]).toHaveLength(5);
     // date
-    expect(statsReader.data[0][0].toDateString()).toBe("Mon Jun 01 2020");
+    expect(statsReader.statsData[0][0].toDateString()).toBe("Mon Jun 01 2020");
     // racetrack
-    expect(statsReader.data[0][1]).toBe("Davisstad");
+    expect(statsReader.statsData[0][1]).toBe("Davisstad");
     // driver
-    expect(statsReader.data[0][2]).toBe("Rico Kihn");
+    expect(statsReader.statsData[0][2]).toBe("Rico Kihn");
     // team
-    expect(statsReader.data[0][3]).toBe("Ab sequi dolorum.");
+    expect(statsReader.statsData[0][3]).toBe("Ab sequi dolorum.");
     // points
-    expect(statsReader.data[0][4]).toEqual(expect.any(Number));
-    expect(statsReader.data[0][4]).toBe(72);
+    expect(statsReader.statsData[0][4]).toEqual(expect.any(Number));
+    expect(statsReader.statsData[0][4]).toBe(72);
   });
 });

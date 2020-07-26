@@ -3,10 +3,24 @@
 import { transformStrToDate } from "./utils";
 import { CsvReader } from "./CsvReader";
 
-type RowData = [Date, string, string, string, number];
+interface DataReader {
+  read(): void;
+  data: string[][];
+}
 
-export class StatsReader extends CsvReader<RowData> {
-  transformStringToRowData(row: string[]): RowData {
+type StatsData = [Date, string, string, string, number];
+
+export class StatsReader {
+  statsData: StatsData[] = [];
+
+  constructor(public reader: DataReader) {}
+
+  load(): void {
+    this.reader.read();
+    this.statsData = this.reader.data.map(this.transformStringToRowData);
+  }
+
+  transformStringToRowData(row: string[]): StatsData {
     return [
       transformStrToDate(row[0]),
       row[1],

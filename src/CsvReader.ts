@@ -1,33 +1,18 @@
 import { readFileSync } from "fs";
-import { transformStrToDate } from "./utils";
 
-type Row = [Date, string, string, string, number];
-
-export class CsvReader {
-  data: Row[] = [];
+export abstract class CsvReader<T> {
+  data: T[] = [];
 
   constructor(public path: string) {}
 
-  private parseCsvString(data: string): Row[] {
+  private parseCsvString(data: string): T[] {
     return data
       .split("\n")
       .map((row: string) => row.split(","))
-      .map(
-        (row: string[]): Row => {
-          return [
-            this.parseDate(row[0]),
-            row[1],
-            row[2],
-            row[3],
-            parseInt(row[4]),
-          ];
-        }
-      );
+      .map((val) => this.transformStringToRowData(val));
   }
 
-  parseDate(dateString: string): Date {
-    return transformStrToDate(dateString);
-  }
+  abstract transformStringToRowData(row: string[]): T;
 
   read(): void {
     this.data = this.parseCsvString(

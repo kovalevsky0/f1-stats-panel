@@ -1,14 +1,12 @@
 // reader of f1 races stats data
 
 import { transformStrToDate } from "./utils";
-import { CsvReader } from "./CsvReader";
+import { StatsData } from "./StatsData";
 
 interface DataReader {
   read(): void;
   data: string[][];
 }
-
-type StatsData = [Date, string, string, string, number];
 
 export class StatsReader {
   statsData: StatsData[] = [];

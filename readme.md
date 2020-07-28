@@ -1,21 +1,25 @@
 # F1 Stats Panel
 
+> this repo contains the prototype of csv parser/reporter module for one project
+
+🔥 TypeScript + Jest
+
 ## Modules:
 
 - CSV Data Report
 
-
-### CSV Data Report
+### Input Data
 
 Fields:
 
 - Date
-- Race Driver
-- Car
 - Location (Racetrack)
+- Race Driver
+- Team
+- Car
 - Points
 
-### Classes Structure
+### Class Structure
 
 - interface DataAnalyzer
 - - run(data: StatsData): string
